@@ -5,12 +5,15 @@ mod hooks;
 use crossbeam_channel::{Receiver, Sender, unbounded};
 use eframe::{
     self, Renderer,
-    egui::{self, FontData, FontDefinitions, FontFamily, FontId, Margin, RichText, TextStyle},
+    egui::{
+        self, FontData, FontDefinitions, FontFamily, FontId, IconData, Margin, RichText, TextStyle,
+    },
 };
+use image::{GenericImageView, ImageFormat, ImageReader};
 use is_elevated::is_elevated;
-use std::mem;
 use std::sync::Arc;
 use std::thread;
+use std::{io::Cursor, mem};
 use windows::{
     Win32::{
         Foundation::{HWND, LPARAM, RECT, TRUE, WPARAM},
@@ -235,6 +238,21 @@ fn main() {
         renderer: Renderer::Wgpu,
         ..Default::default()
     };
+
+    // load icon
+    if let Ok(d_image) = ImageReader::with_format(
+        Cursor::new(include_bytes!("../public/favicon.ico")),
+        ImageFormat::Ico,
+    )
+    .decode()
+    {
+        let (width, height) = d_image.dimensions();
+        options.viewport = options.viewport.with_icon(Arc::new(IconData {
+            rgba: d_image.into_rgba8().into_raw(),
+            width,
+            height,
+        }));
+    }
 
     eframe::run_native(
         "UltraFocusLeetCode",

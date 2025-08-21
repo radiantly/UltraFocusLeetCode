@@ -6,6 +6,10 @@ edition = "2024"
 [dependencies]
 crossbeam-channel = "0.5.15"
 eframe = { version = "0.32.1", features = ["wgpu"] }
+image = { version = "0.25.6", default-features = false, features = ["ico"]}
 is_elevated = "0.1.2"
 wgpu = { version = "25.0.0", default-features = true }
 windows = { version = "0.61.3", features = ["Win32_UI_WindowsAndMessaging", "Win32_Graphics_Gdi"] }
+
+[build-dependencies]
+winresource = "0.1.23"

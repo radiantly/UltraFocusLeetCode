@@ -4,6 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UltraFocusLeetCode</title>
+    <meta name="description" content="No more distractions. Only LeetCode." />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/android-icon-192x192.png"
+    />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap"
       rel="stylesheet"
@@ -75,9 +117,26 @@
 
         display: flex;
         visibility: hidden;
+        gap: 4vw;
       }
       .hero .hero-image {
         flex-grow: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      .hero .himage {
+        background-image: url("images/leetcode.png");
+        height: 584px;
+        max-width: 930px;
+        flex-grow: 1;
+        background-repeat: no-repeat;
+        background-position: left;
+        margin-left: 2vw;
+        border-radius: 10px;
+        box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.1),
+          0 41px 41px 0 rgba(0, 0, 0, 0.09), 0 92px 55px 0 rgba(0, 0, 0, 0.05),
+          0 163px 65px 0 rgba(0, 0, 0, 0.01);
       }
       .hero .hero-para {
         padding-right: 10vw;
@@ -138,10 +197,15 @@
         color: white;
         cursor: pointer;
         user-select: none;
+        text-decoration: none;
         transition: background-color 0.2s ease;
       }
       .hero .download:hover {
         background-color: #444;
+      }
+      .hero .download > * {
+        word-break: keep-all;
+        flex-shrink: 0;
       }
       .hero .info {
         font-size: 11px;
@@ -163,6 +227,16 @@
         background-color: #ccc;
       }
 
+      .vanta-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+
       @media screen and (max-width: 800px) {
         .starter .middle {
           flex-direction: column;
@@ -171,10 +245,12 @@
           font-size: 40px;
         }
         .hero {
-          flex-direction: column-reverse;
           align-items: center;
         }
-        .hero-para {
+        .hero .hero-image {
+          display: none;
+        }
+        .hero .hero-para {
           padding: 25px 5vw 0;
         }
         .hero .title {
@@ -194,7 +270,9 @@
       </div>
     </div>
     <div class="hero">
-      <div class="hero-image"></div>
+      <div class="hero-image">
+        <div class="himage"></div>
+      </div>
       <div class="hero-para">
         <div class="hero-box">
           <div class="introducing">Introducing</div>
@@ -210,10 +288,14 @@
             </div>
             <div>You can’t shutdown. You better finish that problem.</div>
           </div>
-          <div class="download">
-            Download for Windows
+          <a
+            href="https://github.com/radiantly/UltraFocusLeetCode/releases/download/latest/ultrafocusleetcode.exe"
+            class="download"
+            download
+          >
+            <div>Download for Windows</div>
             <img src="images/windows.svg" />
-          </div>
+          </a>
           <div class="info">
             Coming soon to linux and mac. 100% Kishore-proof. View source on
             <a
@@ -226,9 +308,12 @@
         </div>
       </div>
     </div>
+    <div class="vanta-bg"></div>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.dots.min.js"></script>
     <script>
       gsap.registerPlugin(Flip, SplitText);
 
@@ -301,13 +386,32 @@
         timeline2.from(".hero .title span", { opacity: 0, stagger: 0.6 });
 
         timeline2.from(
-          ".hero .points > div, .hero .download, .hero .info",
+          ".hero .points > div, .hero .himage, .hero .download, .hero .info",
           {
             opacity: 0,
             y: 10,
             stagger: 0.2,
           },
           "+=0.2"
+        );
+
+        timeline2.call(() =>
+          VANTA.DOTS({
+            el: ".vanta-bg",
+            mouseControls: false,
+            touchControls: false,
+            gyroControls: false,
+            minHeight: 200.0,
+            minWidth: 200.0,
+            scale: 1.0,
+            scaleMobile: 1.0,
+            color: 0xe6e6e6,
+            color2: 0x69380d,
+            backgroundColor: 0xffffff,
+            size: 2.9,
+            spacing: 21.0,
+            showLines: false,
+          })
         );
 
         // Animation 1
@@ -317,9 +421,7 @@
             document.querySelector(".middle").classList.remove("no-thumb");
             Flip.from(state, {
               absolute: true,
-              onComplete: () => {
-                timeline2.play();
-              },
+              onComplete: () => timeline2.play(),
             });
           },
         });
