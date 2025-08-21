@@ -258,9 +258,6 @@ fn main() {
         "UltraFocusLeetCode",
         options,
         Box::new(|cc| {
-            // This gives us image support:
-            // egui_extras::install_image_loaders(&cc.egui_ctx);
-
             let mut fonts = FontDefinitions::default();
 
             fonts.font_data.insert(
