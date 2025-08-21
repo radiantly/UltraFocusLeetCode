@@ -106,7 +106,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background-image: url("images/logos.png");
+        background-image: url("images/logos.webp");
       }
       .hero {
         position: absolute;
@@ -126,7 +126,7 @@
         align-items: center;
       }
       .hero .himage {
-        background-image: url("images/leetcode.png");
+        background-image: url("images/leetcode.webp");
         height: 584px;
         max-width: 930px;
         flex-grow: 1;
@@ -137,6 +137,17 @@
         box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.1),
           0 41px 41px 0 rgba(0, 0, 0, 0.09), 0 92px 55px 0 rgba(0, 0, 0, 0.05),
           0 163px 65px 0 rgba(0, 0, 0, 0.01);
+        position: relative;
+      }
+      .hero .demo {
+        position: absolute;
+        left: 15%;
+        bottom: 0;
+        transform: translateY(50%);
+        box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.1),
+          0 41px 41px 0 rgba(0, 0, 0, 0.09), 0 92px 55px 0 rgba(0, 0, 0, 0.05),
+          0 163px 65px 0 rgba(0, 0, 0, 0.01);
+        border-radius: 5px;
       }
       .hero .hero-para {
         padding-right: 10vw;
@@ -164,6 +175,27 @@
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+      }
+      .hero .mobile-demo {
+        display: none;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+          rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+          rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        margin-top: 20px;
+        position: relative;
+      }
+      .hero .mobile-demo > img:first-child {
+        width: 100%;
+      }
+      .hero .mobile-demo > img:last-child {
+        position: absolute;
+        bottom: 0;
+        left: 55%;
+        width: 35%;
+        transform: translateY(50%);
+        border-radius: 3px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+          rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
       }
       .hero .points {
         display: flex;
@@ -256,6 +288,9 @@
         .hero .title {
           font-size: 36px;
         }
+        .hero .mobile-demo {
+          display: flex;
+        }
       }
     </style>
   </head>
@@ -271,13 +306,23 @@
     </div>
     <div class="hero">
       <div class="hero-image">
-        <div class="himage"></div>
+        <div class="himage">
+          <img
+            src="images/demo.webp"
+            alt="UltraFocusLeetCode Demo"
+            class="demo"
+          />
+        </div>
       </div>
       <div class="hero-para">
         <div class="hero-box">
           <div class="introducing">Introducing</div>
           <div class="title">
             <span>Ultra</span><span>Focus</span><span>LeetCode</span>
+          </div>
+          <div class="mobile-demo">
+            <img src="images/leetcode.webp" alt="LeetCode screenshot" />
+            <img src="images/demo.webp" alt="UltraFocusLeetCode Demo" />
           </div>
           <div class="points">
             <div>
@@ -386,7 +431,7 @@
         timeline2.from(".hero .title span", { opacity: 0, stagger: 0.6 });
 
         timeline2.from(
-          ".hero .points > div, .hero .himage, .hero .download, .hero .info",
+          ".hero .points > div, .hero .himage, .hero .demo, .hero .mobile-demo, .hero .mobile-demo > img:last-child, .hero .download, .hero .info",
           {
             opacity: 0,
             y: 10,
