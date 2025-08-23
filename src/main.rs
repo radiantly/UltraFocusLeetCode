@@ -116,7 +116,8 @@ impl Gui {
                 println!("attempting to get window");
                 let windows = get_leetcode_window();
                 let lc_window = windows.iter().find(|window| {
-                    window.title != "UltraFocusLeetCode" && window.title.contains("LeetCode")
+                    !window.title.contains("UltraFocusLeetCode")
+                        && window.title.contains("LeetCode")
                 });
                 if let Some(window) = lc_window {
                     let _ = main_send.send(WorkerResponse::SUCCESS(format!(

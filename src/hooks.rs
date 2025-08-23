@@ -2,7 +2,8 @@ use std::error;
 use windows::Win32::Foundation::{HWND, LPARAM, LRESULT, WPARAM};
 use windows::Win32::System::LibraryLoader::GetModuleHandleW;
 use windows::Win32::UI::Input::KeyboardAndMouse::{
-    VK_0, VK_9, VK_A, VK_LSHIFT, VK_NUMPAD0, VK_NUMPAD9, VK_RSHIFT, VK_Z,
+    VK_0, VK_9, VK_A, VK_BACK, VK_DELETE, VK_DOWN, VK_LEFT, VK_LSHIFT, VK_NUMPAD0, VK_NUMPAD9,
+    VK_RETURN, VK_RIGHT, VK_RSHIFT, VK_SPACE, VK_TAB, VK_UP, VK_Z,
 };
 use windows::Win32::UI::WindowsAndMessaging::{
     CallNextHookEx, DispatchMessageW, GetMessageW, HC_ACTION, KBDLLHOOKSTRUCT, MSG, MSLLHOOKSTRUCT,
@@ -20,7 +21,8 @@ fn is_alnum_vk(vk: u32) -> bool {
     // 'A'..'Z'
     (vk >= VK_A.0 as u32 && vk <= VK_Z.0 as u32) ||
     // Numpad 0..9
-    (vk >= VK_NUMPAD0.0 as u32 && vk <= VK_NUMPAD9.0 as u32)
+    (vk >= VK_NUMPAD0.0 as u32 && vk <= VK_NUMPAD9.0 as u32) ||
+     vk == VK_BACK.0 as u32 || vk == VK_RETURN.0 as u32 || vk == VK_DELETE.0 as u32 || vk == VK_SPACE.0 as u32 || vk == VK_LEFT.0 as u32 || vk == VK_UP.0 as u32 || vk == VK_RIGHT.0 as u32 || vk == VK_DOWN.0 as u32 || vk == VK_TAB.0 as u32
 }
 
 fn is_modifier_allowed(vk: u32) -> bool {
